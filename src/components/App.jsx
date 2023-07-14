@@ -29,7 +29,7 @@ export const App = () => {
 
   const getFilteredContacts = () => {
     const normalizedFilter = filter.toLowerCase();
-  if (contacts.length !== 0) {
+  if (contacts || contacts.length === 0) {
     return contacts.filter(({ inputName }) => inputName && inputName.toLowerCase().includes(normalizedFilter));
   }
   };
