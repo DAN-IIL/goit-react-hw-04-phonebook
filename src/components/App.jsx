@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 import { ContactForm } from "components/ContactForm/ContactForm.jsx";
 import { ContactList } from "components/ContactList/ContactList.jsx";
 import { Notification } from "components/Notification/Notification.jsx";
@@ -7,6 +5,7 @@ import { Filter } from "components/Filter/Filter.jsx";
 
 import { nanoid } from "nanoid";
 import { Container, FormTitle, ContnactsTitle } from "./App.styled";
+import { useEffect, useState } from 'react';
 
 const LS_KEY = 'contact_list';
 
