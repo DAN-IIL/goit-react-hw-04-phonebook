@@ -1,0 +1,16 @@
+.filter {
+    max-width: 500px;
+}
+
+.filter p {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.filter input {
+    max-width: 250px;
+    height: 25px;
+    border: 4px solid rgba(7, 171, 67, 0.649);
+    border-radius: 7px;
+    margin-bottom: 10px;
+}

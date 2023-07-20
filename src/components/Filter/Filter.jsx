@@ -1,18 +1,16 @@
-import { PropTypes } from "prop-types";
-import { LabelFilter } from "./Filter.styled";
-import { Input } from "components/ContactForm/ContactForm.styled";
-import { Span } from "components/ContactForm/ContactForm.styled";
+import PropTypes from "prop-types";
+import styles from './Filter.module.css';
 
-export const Filter = ({ value, changeFilter }) => {
-    return (
-        <LabelFilter>
-            <Span>Find contacts by name</Span>
-            <Input type="text" value={value} onChange={changeFilter}/>
-        </LabelFilter>
-    )
+const Filter = ({ value, onChange }) => {
+    return <div className={styles.filter}>
+        <p>Find contacts by name</p>
+        <input type="text" onChange={onChange} value={value} />
+    </div>
 }
 
 Filter.propTypes = {
-    value: PropTypes.string.isRequired,
-    changeFilter: PropTypes.func.isRequired,
-}
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+export default Filter;

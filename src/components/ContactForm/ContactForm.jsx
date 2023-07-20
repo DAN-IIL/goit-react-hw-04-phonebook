@@ -1,81 +1,61 @@
-import { PropTypes } from "prop-types";
-import { Form, Span, AddButton, Label, Input} from "./ContactForm.styled";
-import { useState } from "react";
+import { useState } from 'react';
+import { nanoid } from 'nanoid';
+import styles from './ContactForm.module.css';
 
-// Код з хуками 2га версія
+const ContactForm = ({ onSubmit }) => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-export const ContactForm = ({ contacts, onSubmit }) => {
+  const idContacts = nanoid();
 
-  const [inputName, setInputName] = useState('');
-  const [inputNumber, setInputNumber] = useState('');
-
-  const handleChange = (e) => {
+  const handleChange = e => {
+    e.preventDefault();
     const { name, value } = e.currentTarget;
     if (name === 'name') {
-      setInputName(value);
+      setName(value);
     } else if (name === 'number') {
-      setInputNumber(value);
+      setNumber(value);
     }
   };
 
-  const handleAddContactSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    
-  const arryName = contacts.map(({ inputName }) => inputName);
-  const arryNumber = contacts.map(({inputNumber}) => inputNumber)
-    
-    const isIncludeContactName = arryName.includes(inputName);
-    const isIncludeContactNumber = arryNumber.includes(inputNumber);
-
-    if (isIncludeContactName) {
-      return alert(`"${inputName}" is already in contacts`);
-    } else if (isIncludeContactNumber) {
-      return alert(`"${inputNumber}" is already in contacts`);
-    } else {
-      onSubmit({ inputName, inputNumber });
-      setInputName('');
-      setInputNumber('');
-    }
+    const { name, number } = e.target.elements;
+    onSubmit(name.value, number.value);
+    setName('');
+    setNumber('');
   };
 
   return (
-    <Form onSubmit={handleAddContactSubmit}>
-      <Label>
-        <Span>Name</Span>
-        <Input
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <label htmlFor={idContacts}>
+        <p>Name</p>
+        <input
+          value={name}
+          id={idContacts}
           onChange={handleChange}
           type="text"
           name="name"
-          value={inputName}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
         />
-      </Label>
-      <Label>
-        <Span>Number</Span>
-        <Input
+      </label>
+      <label htmlFor={idContacts}>
+        <p>Number</p>
+        <input
+          value={number}
+          id={idContacts}
           onChange={handleChange}
           type="tel"
           name="number"
-          value={inputNumber}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
         />
-      </Label>
-      <AddButton type="submit">Add contact</AddButton>
-    </Form>
+      </label>
+      <button type="submit">Add contact</button>
+    </form>
   );
 };
-
-ContactForm.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
-      number: PropTypes.string,
-    })
-  ).isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
+export default ContactForm;

@@ -1,30 +1,24 @@
-import { PropTypes } from "prop-types";
-import { ContactListItem } from "components/ContactListItem/ContactListItem.jsx";
-import { ContnactsList } from "./ContactList.styled";
+import ContactItem from "components/ContactListItem/ContactListItem";
+import PropTypes from "prop-types";
 
-export const ContactList = ({ contacts,onRemoveContact}) => {    
-        return (
-            <ContnactsList>
-                {contacts.map(({ inputName, id, inputNumber }) => {
-                    return (
-                        <ContactListItem
-                            key={id}
-                            id={id}
-                            name={inputName}
-                            tel={inputNumber}
-                            onRemoveContact={onRemoveContact}
-                        />
-                )})}
-            </ContnactsList>
-        )
+import styles from './ContactList.module.css';
+
+const ContactList = ({contacts, onDelete}) => {
+    return <ul className={styles.list}>
+        {contacts.map(contact => {
+            return <ContactItem key={contact.id} contact={contact} onDelete={onDelete}/>
+      })}
+  </ul>  
 }
-
 ContactList.propTypes = {
-    contacts: PropTypes.arrayOf(
-        PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        id: PropTypes.string.isRequired,
-        number: PropTypes.string.isRequired,
-    }).isRequired),
-    onRemoveContact: PropTypes.func.isRequired,
-}
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
+
+export default ContactList;
