@@ -49,7 +49,7 @@ const App = () => {
   };
 
   const handleSubmit = (name, number) => {
-    const isExist = contacts.find(contact => contact.name === name);
+    const isExist = contacts.find(contact => contact.name.toLowerCase === name.toLowerCase);
     if (isExist) {
       return alert(`${name} вже є у списку контактів.`);
     }
